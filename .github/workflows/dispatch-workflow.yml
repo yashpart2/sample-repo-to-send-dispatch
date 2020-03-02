@@ -1,8 +1,12 @@
-- name: Repository Dispatch
-  uses: peter-evans/repository-dispatch@v1
-  with:
-    token: ${{ secrets.REPO_ACCESS_TOKEN }}
-    repository: YashJipkate/sample-dispatch-event-consumer
-    event-type: dispatch-event
-    client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-
+on: [push]
+jobs:
+  dispatch-job:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: YashJipkate/sample-dispatch-event-consumer
+          event-type: dispatch-event
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
